@@ -1,7 +1,7 @@
 // src/components/TokenInfo.jsx
 import { useState } from "react";
 
-// ─── Formatters ───────────────────────────────────────────────────────────────
+// Formatters 
 
 const format = (num) => {
   if (!num || isNaN(num)) return "0";
@@ -39,7 +39,7 @@ function TokenLogoFallback({ symbol }) {
   );
 }
 
-// ─── Main component ───────────────────────────────────────────────────────────
+//Main component
 
 export default function TokenInfo({ tokenData }) {
   const [imgError, setImgError] = useState(false);
@@ -64,7 +64,7 @@ export default function TokenInfo({ tokenData }) {
   return (
     <div className="space-y-4">
 
-      {/* ── Token Header Card ───────────────────────────────────────── */}
+      {/* Token Header Card */}
       <div className="relative overflow-hidden bg-[#0a0f1a] border border-white/[0.06] rounded-2xl shadow-xl group transition-all duration-300 hover:border-cyan-500/20 hover:shadow-cyan-500/[0.08]">
         {/* Accent line top */}
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-cyan-400/30 to-transparent" />
@@ -179,7 +179,7 @@ export default function TokenInfo({ tokenData }) {
         </div>
       </div>
 
-      {/* ── Price Change Grid ────────────────────────────────────────── */}
+      {/* Price Change Grid  */}
       <div className="grid grid-cols-2 gap-3">
         {[
           { label: "5M",  value: tokenData.change5m  ?? 0 },
@@ -212,7 +212,7 @@ export default function TokenInfo({ tokenData }) {
         ))}
       </div>
 
-      {/* ── Market Data Card ─────────────────────────────────────────── */}
+      {/*  Market Data Card */}
       <div className="bg-[#0a0f1a] border border-white/[0.06] rounded-2xl overflow-hidden transition-all duration-300 hover:border-blue-500/20">
         {/* Card header */}
         <div className="px-5 py-4 border-b border-white/[0.04] bg-gradient-to-r from-blue-500/[0.04] to-cyan-500/[0.04]">
@@ -289,7 +289,7 @@ export default function TokenInfo({ tokenData }) {
         </div>
       </div>
 
-      {/* ── Quick Actions ────────────────────────────────────────────── */}
+      {/* Quick Actions */}
       <div className="grid grid-cols-2 gap-3">
         <a
           href={`https://basescan.org/token/${tokenData.address}`}
@@ -328,7 +328,7 @@ export default function TokenInfo({ tokenData }) {
         </a>
       </div>
 
-      {/* ── Data notice ──────────────────────────────────────────────── */}
+      {/* Data notice */}
       <div className="flex items-start gap-3 px-4 py-3 bg-blue-500/[0.04] border border-blue-500/15 rounded-xl">
         <svg className="w-4 h-4 text-blue-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"

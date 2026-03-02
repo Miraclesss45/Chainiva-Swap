@@ -7,13 +7,12 @@ export default function WalletConnect() {
 
   // Short address for avatar initials when ENS unavailable
   const initials = address ? address.slice(2, 4).toUpperCase() : "??";
-  const short    = address ? `${address.slice(0, 6)}…${address.slice(-4)}` : null;
+  const short = address ? `${address.slice(0, 6)}…${address.slice(-4)}` : null;
 
   return (
     <ConnectKitButton.Custom>
       {({ isConnected, isConnecting, show, truncatedAddress, ensName }) => {
-
-        // ── Connected ──────────────────────────────────────────────────
+        //Connected
         if (isConnected) {
           return (
             <button
@@ -25,7 +24,9 @@ export default function WalletConnect() {
             >
               {/* Avatar */}
               <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-cyan-400 to-blue-500 shrink-0 flex items-center justify-center">
-                <span className="font-mono text-[9px] font-bold text-white">{initials}</span>
+                <span className="font-mono text-[9px] font-bold text-white">
+                  {initials}
+                </span>
               </div>
 
               {/* Address / ENS */}
@@ -36,15 +37,22 @@ export default function WalletConnect() {
               {/* Dropdown caret */}
               <svg
                 className="w-3 h-3 text-slate-600 group-hover:text-cyan-400 transition-colors duration-200 shrink-0"
-                fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
               >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M19 9l-7 7-7-7"
+                />
               </svg>
             </button>
           );
         }
 
-        // ── Connecting ─────────────────────────────────────────────────
+        // Connecting
         if (isConnecting) {
           return (
             <button
@@ -60,7 +68,7 @@ export default function WalletConnect() {
           );
         }
 
-        // ── Disconnected ───────────────────────────────────────────────
+        // Disconnected
         return (
           <button
             onClick={show}
@@ -76,9 +84,18 @@ export default function WalletConnect() {
             {/* Shimmer overlay */}
             <div className="absolute inset-0 bg-gradient-to-b from-white/[0.08] to-transparent pointer-events-none" />
 
-            <svg className="relative w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
-                d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
+            <svg
+              className="relative w-3.5 h-3.5 shrink-0"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"
+              />
             </svg>
             <span className="relative">Connect</span>
           </button>

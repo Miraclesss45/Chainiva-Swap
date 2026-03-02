@@ -1,17 +1,4 @@
 // src/components/Swap.jsx
-//
-// ⚠️  RPC — set a dedicated provider in your wagmi config (see main.jsx).
-//     The public Base RPC is heavily rate-limited. Use Alchemy/QuickNode/Infura.
-//
-// ⚠️  1INCH API KEY — add to .env:
-//     VITE_ONEINCH_API_KEY=your_key_here
-//     Get a free key at https://portal.1inch.dev
-//
-// SUGGESTED IMPROVEMENTS:
-//  1. TOKEN SELECTOR MODAL  2. TRANSACTION HISTORY PANEL
-//  3. PRICE CHART           4. PERMIT2 APPROVAL
-//  5. BETTER ERROR RECOVERY
-
 import { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import {
   LuArrowUpDown,
@@ -36,7 +23,7 @@ import {
   getAddress,
 } from "viem";
 
-// ─── ERC-20 ABI ───────────────────────────────────────────────────────────────
+//ERC-20 ABI
 const ERC20ABI = [
   {
     name: "allowance",
@@ -60,7 +47,7 @@ const ERC20ABI = [
   },
 ];
 
-// ─── Constants ────────────────────────────────────────────────────────────────
+// Constants
 const ONEINCH_ROUTER = getAddress("0x111111125421cA6dc452d289314280a0f8842A65");
 const ONEINCH_API = import.meta.env.DEV
   ? "/api/1inch/swap/v6.0/8453"
@@ -76,7 +63,7 @@ const MAX_UINT256 = BigInt(
 const ETH_LOGO =
   "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Ccircle cx='16' cy='16' r='16' fill='%23627EEA'/%3E%3Cg fill='%23FFF' fill-rule='nonzero'%3E%3Cpath fill-opacity='.602' d='M16.498 4v8.87l7.497 3.35z'/%3E%3Cpath d='M16.498 4L9 16.22l7.498-3.35z'/%3E%3Cpath fill-opacity='.602' d='M16.498 21.968v6.027L24 17.616z'/%3E%3Cpath d='M16.498 27.995v-6.028L9 17.616z'/%3E%3Cpath fill-opacity='.2' d='M16.498 20.573l7.497-4.353-7.497-3.348z'/%3E%3Cpath fill-opacity='.602' d='M9 16.22l7.498 4.353v-7.701z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E";
 
-// ─── Responsive breakpoint hook ───────────────────────────────────────────────
+//Responsive breakpoint hook
 function useBreakpoint() {
   const [bp, setBp] = useState(() => {
     const w = typeof window !== "undefined" ? window.innerWidth : 375;
@@ -103,7 +90,7 @@ function useBreakpoint() {
   return bp;
 }
 
-// ─── Utilities ────────────────────────────────────────────────────────────────
+// Utilities
 const formatMaxBalance = (balance) => {
   try {
     const num = Number(balance);
@@ -131,7 +118,7 @@ const truncateDecimals = (str, maxDecimals) => {
     : str;
 };
 
-// ─── 1inch helpers ────────────────────────────────────────────────────────────
+// 1inch helpers
 const oneinchHeaders = () => ({
   "Content-Type": "application/json",
   ...(ONEINCH_API_KEY ? { Authorization: `Bearer ${ONEINCH_API_KEY}` } : {}),
@@ -182,7 +169,7 @@ const fetchOneinchSwap = async ({
   return data.tx;
 };
 
-// ─── Style injection ──────────────────────────────────────────────────────────
+//Style injection
 const injectStyles = () => {
   if (document.getElementById("sw3-styles")) return;
   const el = document.createElement("style");
@@ -394,9 +381,7 @@ const injectStyles = () => {
   document.head.appendChild(el);
 };
 
-// ─────────────────────────────────────────────────────────────────────────────
 // Sub-components
-// ─────────────────────────────────────────────────────────────────────────────
 
 function TokenBadge({ isEth, symbol, logoUrl, compact }) {
   const [imgErr, setImgErr] = useState(false);
@@ -1170,7 +1155,7 @@ function SettingsModal({
   );
 }
 
-// ─── Main component ───────────────────────────────────────────────────────────
+// Main component
 export default function Swap({
   tokenAddress,
   tokenData,
@@ -1804,7 +1789,7 @@ export default function Swap({
         : "var(--green)";
   const cardPad = isMobile ? "12px" : isDesktop ? "20px" : "16px";
 
-  // ── Empty state ───────────────────────────────────────────────────────────────
+  // Empty state
   if (!checksummed) {
     return (
       <div
@@ -1861,7 +1846,7 @@ export default function Swap({
     );
   }
 
-  // ── Main render ───────────────────────────────────────────────────────────────
+  // Main render
   return (
     <>
       <div
@@ -1953,7 +1938,7 @@ export default function Swap({
             </div>
           </div>
 
-          {/* ── Wrong network ── */}
+          {/*  Wrong network  */}
           {isConnected && !isCorrectNetwork && (
             <div className="sw-net-banner">
               <span
@@ -1986,7 +1971,7 @@ export default function Swap({
             </div>
           )}
 
-          {/* ── Token panels ── */}
+          {/*Token panels*/}
           <div
             style={{
               display: "flex",
@@ -2021,7 +2006,7 @@ export default function Swap({
             />
           </div>
 
-          {/* ── Quote details ── */}
+          {/* Quote details */}
           {outputAmount && Number(outputAmount) > 0 && !quoteLoading && (
             <div style={{ marginTop: 10 }}>
               {top.value && Number(top.value) > 0 && (
@@ -2087,7 +2072,7 @@ export default function Swap({
             </div>
           )}
 
-          {/* ── Notices ── */}
+          {/* Notices*/}
           <div
             style={{
               marginTop: 10,
@@ -2120,7 +2105,7 @@ export default function Swap({
             {errorMsg && <Notice type="error">{errorMsg}</Notice>}
           </div>
 
-          {/* ── CTA ── */}
+          {/*  CTA */}
           <div style={{ marginTop: 10 }}>
             <SwapButton
               btnStyle={btnStyle}
@@ -2130,14 +2115,14 @@ export default function Swap({
             />
           </div>
 
-          {/* ── Swap confirmed (post-tx only) ── */}
+          {/* Swap confirmed (post-tx only) */}
           {successMsg && (
             <div style={{ marginTop: 8 }}>
               <Notice type="success">{successMsg}</Notice>
             </div>
           )}
 
-          {/* ── Footer ── */}
+          {/*Footer*/}
           <div
             style={{
               marginTop: 10,
